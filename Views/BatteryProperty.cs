@@ -6,9 +6,9 @@ namespace Battery_Health_Viewer.Views
     public class BatteryProperty : INotifyPropertyChanged
     {
         // A class that generates each property of the battery in a "Description | Value" format. Used by BatteryInfoProvider.cs
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        private string _value;
+        private string _value = "";
         public string Value
         {
             get => _value;
@@ -19,9 +19,9 @@ namespace Battery_Health_Viewer.Views
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string name = null)
+        private void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

@@ -53,9 +53,12 @@ namespace Battery_Health_Viewer.Views
 
             AppSettings.Theme = theme;
 
-            var mainWindow = (MainWindow)((App)Application.Current).MainWindow;
-            mainWindow.SetTheme(theme);
+            if (Application.Current is App app && app.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.SetTheme(theme);
+            }
         }
+
         private void RefreshChanged(object sender, SelectionChangedEventArgs e)
         {
             int value = RefreshCombo.SelectedIndex switch
@@ -68,10 +71,11 @@ namespace Battery_Health_Viewer.Views
 
             AppSettings.RefreshSpeed = value;
 
-            var mainWindow = (MainWindow)((App)Application.Current).MainWindow;
-
-            var menu = mainWindow.RootFrame.Content as Menu;
-            menu?.UpdateRefreshSpeed();
+            if (Application.Current is App app && app.MainWindow is MainWindow mainWindow)
+            {
+                var menu = mainWindow.RootFrame.Content as Menu;
+                menu?.UpdateRefreshSpeed();
+            }
         }
     }
 }

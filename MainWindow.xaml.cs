@@ -14,7 +14,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using WinUIEx;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using WinRT.Interop;
@@ -23,7 +22,7 @@ namespace Battery_Health_Viewer
 {
     public sealed partial class MainWindow : Window
     {
-        private Menu _menuPage;
+        private Menu? _menuPage;
         public Frame RootFrame => rootFrame;
         public MainWindow()
         {
