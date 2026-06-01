@@ -8,34 +8,49 @@ namespace Battery_Health_Viewer.Views
 {
     public sealed partial class Menu : Page
     {
-        public ObservableCollection<BatteryProperty> BatteryInfo { get; set; }
+        public ObservableCollection<BatteryProperty> BatteryInfo { get; } = new();
 
         private readonly BatteryInfoProvider _provider = new();
         private readonly DispatcherTimer _timer = new();
 
         public Menu()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            BatteryInfo = _provider.GetBatteryInfo();
+            BatteryInfo.Add(new BatteryProperty { Description = "Battery Name" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Power State" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Current Capacity (in %)" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Current Capacity Value" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Full Charge Capacity" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Designed Capacity" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Battery Health" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Wear Level" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Voltage" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Charge/Discharge Rate" });
+            BatteryInfo.Add(new BatteryProperty { Description = "Charge Cycle Number" });
 
-            SetupLiveUpdates();
+            RefreshBattery();
+
+            _timer.Interval = TimeSpan.FromSeconds(2);
+            _timer.Tick += (_, __) => RefreshBattery();
+            _timer.Start();
         }
 
-        private void SetupLiveUpdates()
+        private void RefreshBattery()
         {
-            _timer.Interval = TimeSpan.FromSeconds(0.5);
+            var updated = _provider.GetBatteryInfo();
 
-            _timer.Tick += (s, e) =>
+            int count = Math.Min(BatteryInfo.Count, updated.Count);
+
+            for (int i = 0; i < count; i++)
             {
-                var updated = _provider.GetBatteryInfo();
+                BatteryInfo[i].Value = updated[i].Value;
+            }
+        }
 
-                BatteryInfo.Clear();
-                foreach (var item in updated)
-                    BatteryInfo.Add(item);
-            };
-
-            _timer.Start();
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshBattery();
         }
     }
 }
