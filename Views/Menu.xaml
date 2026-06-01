@@ -41,7 +41,7 @@
             Grid.Row="2"
             Padding="16"
             CornerRadius="5"
-            BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+            BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}"
             BorderThickness="1"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
 

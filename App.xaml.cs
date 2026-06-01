@@ -27,6 +27,7 @@ namespace Battery_Health_Viewer
     public partial class App : Application
     {
         private Window? _window;
+        public Window MainWindow { get; private set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -43,8 +44,8 @@ namespace Battery_Health_Viewer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            _window = new MainWindow();
-            _window.Activate();
+            MainWindow = new MainWindow();
+            MainWindow.Activate();
         }
     }
 }

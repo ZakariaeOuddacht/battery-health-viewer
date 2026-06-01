@@ -14,21 +14,43 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid>
+    <Grid x:Name="RootLayout">
         <Grid.RowDefinitions>
-            <!-- Title Bar -->
-            <RowDefinition Height="Auto" />
-            <!-- App Content -->
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <!-- Title Bar -->
         <TitleBar x:Name="AppTitleBar"
               Title="Battery Health Viewer">
             <TitleBar.IconSource>
-                <FontIconSource Glyph="&#xECB9;"/>
+                <FontIconSource Glyph="&#xEBA8;"/>
             </TitleBar.IconSource>
         </TitleBar>
 
-        <!-- App content -->
-        <Frame x:Name="rootFrame" Grid.Row="1" SourcePageType="Views:Menu"/>
+        <!-- NAVIGATION SHELL -->
+        <NavigationView
+        x:Name="NavView"
+        Grid.Row="1"
+        PaneDisplayMode="LeftCompact"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="True"
+        IsPaneOpen="False"
+        SelectionChanged="NavView_SelectionChanged">
+
+            <!-- SIDEBAR ITEMS -->
+            <NavigationView.MenuItems>
+                <NavigationViewItem Tag="dashboard" Content="Dashboard">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE80F;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <!-- PAGE CONTENT -->
+            <Frame x:Name="rootFrame"/>
+
+        </NavigationView>
+
     </Grid>
 </Window>

@@ -31,7 +31,7 @@ namespace Battery_Health_Viewer.Views
 
             RefreshBattery();
 
-            _timer.Interval = TimeSpan.FromSeconds(2);
+            _timer.Interval = TimeSpan.FromMilliseconds(AppSettings.RefreshSpeed);
             _timer.Tick += (_, __) => RefreshBattery();
             _timer.Start();
         }
@@ -51,6 +51,10 @@ namespace Battery_Health_Viewer.Views
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshBattery();
+        }
+        public void UpdateRefreshSpeed()
+        {
+            _timer.Interval = TimeSpan.FromMilliseconds(AppSettings.RefreshSpeed);
         }
     }
 }
