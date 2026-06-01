@@ -9,6 +9,12 @@ namespace Battery_Health_Viewer.Views
         public Settings()
         {
             this.InitializeComponent();
+            CapacityToggle.IsOn = AppSettings.UsemAh;
+
+            CapacityToggle.Toggled += (s, e) =>
+            {
+                AppSettings.UsemAh = CapacityToggle.IsOn;
+            };
 
             LoadSettings();
         }

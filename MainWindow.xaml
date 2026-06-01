@@ -28,17 +28,11 @@
             </TitleBar.IconSource>
         </TitleBar>
 
-        <!-- NAVIGATION SHELL -->
-        <NavigationView
-        x:Name="NavView"
-        Grid.Row="1"
-        PaneDisplayMode="LeftCompact"
-        IsBackButtonVisible="Collapsed"
-        IsSettingsVisible="True"
-        IsPaneOpen="False"
-        SelectionChanged="NavView_SelectionChanged">
+        <!-- Navigation Shell -->
+        <NavigationView x:Name="NavView" Grid.Row="1" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="True" IsPaneOpen="False" SelectionChanged="NavView_SelectionChanged"> <!-- IsSettingsVisible/Animated Settings Button my beloved! -->
 
-            <!-- SIDEBAR ITEMS -->
+            <!-- Sidebar Items -->
             <NavigationView.MenuItems>
                 <NavigationViewItem Tag="dashboard" Content="Dashboard">
                     <NavigationViewItem.Icon>
@@ -47,7 +41,6 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
 
-            <!-- PAGE CONTENT -->
             <Frame x:Name="rootFrame"/>
 
         </NavigationView>

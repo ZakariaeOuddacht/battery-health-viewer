@@ -8,6 +8,7 @@ namespace Battery_Health_Viewer.Services
 {
     public class BatteryInfoProvider
     {
+        // Provides info from the battery for the Dashboard (Menu.xaml) to use
         public ObservableCollection<BatteryProperty> GetBatteryInfo()
         {
             var battery = Battery.AggregateBattery;
@@ -97,6 +98,17 @@ namespace Battery_Health_Viewer.Services
             {
             }
 
+            string FormatEnergy(long mwh)
+            {
+                if (AppSettings.UsemAh)
+                {
+                    double mah = mwh / 7.630789736754415; // I know, I've gone crazy here, but ATLEAST IT WORKS! :insane:
+                    return $"{mah:N0} mAh";
+                }
+
+                return $"{mwh:N0} mWh";
+            }
+
             return new ObservableCollection<BatteryProperty>
             {
                 new() { Description = "Battery Name", Value = batteryName },
@@ -104,9 +116,9 @@ namespace Battery_Health_Viewer.Services
                 new() { Description = "Power State", Value = powerState },
 
                 new() { Description = "Current Capacity (in %)", Value = $"{currentPercent:F1}%" },
-                new() { Description = "Current Capacity Value", Value = $"{remainingCapacity:N0} mWh" },
-                new() { Description = "Full Charge Capacity", Value = $"{fullChargeCapacity:N0} mWh" },
-                new() { Description = "Designed Capacity", Value = $"{designCapacity:N0} mWh" },
+                new() { Description = "Current Capacity Value", Value = FormatEnergy(remainingCapacity) },
+                new() { Description = "Full Charge Capacity", Value = FormatEnergy(fullChargeCapacity) },
+                new() { Description = "Designed Capacity", Value = FormatEnergy(designCapacity) },
 
                 new() { Description = "Battery Health", Value = $"{health:F1}%" },
                 new() { Description = "Wear Level", Value = $"{wearLevel:F1}%" },

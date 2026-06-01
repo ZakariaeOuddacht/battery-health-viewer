@@ -16,9 +16,8 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinUIEx;
 using Microsoft.UI;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Microsoft.UI.Windowing;
+using WinRT.Interop;
 
 namespace Battery_Health_Viewer
 {
@@ -39,10 +38,11 @@ namespace Battery_Health_Viewer
             appWindow.TitleBar.ButtonBackgroundColor = Windows.UI.Color.FromArgb(0, 0, 0, 0);
             appWindow.TitleBar.ButtonInactiveBackgroundColor = Windows.UI.Color.FromArgb(0, 0, 0, 0);
 
-            AppWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1024, Height = 800 });
+            RestoreWindowState();
+            Closed += (_, _) => SaveWindowState();
 
             rootFrame.Navigate(typeof(Menu)); // Default page
-            _menuPage = rootFrame.Content as Menu;
+            _menuPage = rootFrame.Content as Menu; // I hate when it warns me about nullable thingies >:(
 
             NavView.SelectedItem = NavView.MenuItems[0];
             ApplySavedTheme();
@@ -113,6 +113,45 @@ namespace Battery_Health_Viewer
                         rootFrame.Navigate(typeof(Views.Menu));
                         break;
                 }
+            }
+        }
+        private void RestoreWindowState()
+        {
+            AppWindow.Resize(new Windows.Graphics.SizeInt32
+            {
+                Width = AppSettings.WindowWidth,
+                Height = AppSettings.WindowHeight
+            });
+
+            if (AppSettings.WindowX >= 0 && AppSettings.WindowY >= 0)
+            {
+                AppWindow.Move(new Windows.Graphics.PointInt32(
+                    AppSettings.WindowX,
+                    AppSettings.WindowY));
+            }
+
+            if (AppSettings.WindowMaximized &&
+                AppWindow.Presenter is OverlappedPresenter presenter)
+            {
+                presenter.Maximize();
+            }
+        }
+
+        private void SaveWindowState()
+        {
+            if (AppWindow.Presenter is OverlappedPresenter presenter)
+            {
+                AppSettings.WindowMaximized =
+                    presenter.State == OverlappedPresenterState.Maximized;
+            }
+
+            if (!AppSettings.WindowMaximized)
+            {
+                AppSettings.WindowWidth = AppWindow.Size.Width;
+                AppSettings.WindowHeight = AppWindow.Size.Height;
+
+                AppSettings.WindowX = AppWindow.Position.X;
+                AppSettings.WindowY = AppWindow.Position.Y;
             }
         }
     }

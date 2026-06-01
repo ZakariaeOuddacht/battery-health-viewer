@@ -7,25 +7,16 @@
 
         <StackPanel Padding="24" Spacing="24">
 
-            <!-- TITLE -->
-            <TextBlock
-                Text="Settings"
-                FontSize="28"
-                FontWeight="SemiBold"/>
+            <!-- Title -->
+            <TextBlock Text="Settings" FontSize="28" FontWeight="SemiBold"/>
 
-            <!-- ================= APPEARANCE ================= -->
+            <!-- Appearance -->
             <StackPanel Spacing="10">
 
-                <TextBlock Text="Appearance"
-                           FontSize="16"
-                           FontWeight="SemiBold"/>
-
-                <Border
-                    CornerRadius="5"
-                    Padding="15"
+                <TextBlock Text="Appearance" FontSize="14" FontWeight="SemiBold"/>
+                <Border CornerRadius="{ThemeResource ControlCornerRadius}" Padding="15"
                     Background="{ThemeResource ControlFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}"
-                    BorderThickness="1">
+                    BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}" BorderThickness="1">
 
                     <Grid ColumnSpacing="16">
                         <Grid.ColumnDefinitions>
@@ -34,23 +25,14 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <FontIcon Glyph="&#xE790;"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"/>
-
+                        <FontIcon Glyph="&#xE790;" FontSize="20" VerticalAlignment="Center"/>
+                        
                         <StackPanel Grid.Column="1" Spacing="2">
-                            <TextBlock Text="App theme"
-                                       FontWeight="Normal"/>
-
-                            <TextBlock Text="Override system appearance."
-                                       Opacity="0.6"
-                                       FontSize="12"/>
+                            <TextBlock Text="App theme" TextWrapping="WrapWholeWords" FontWeight="Normal"/>
+                            <TextBlock Text="Override system appearance." Opacity="0.6" TextWrapping="WrapWholeWords" FontSize="12"/> <!-- I DIDN'T KNOW THAT DESCRIPTIONS USE OPACITY! -->
                         </StackPanel>
 
-                        <ComboBox Grid.Column="2"
-                                  Width="200"
-                                  HorizontalAlignment="Right"
-                                  x:Name="ThemeCombo">
+                        <ComboBox Grid.Column="2" Width="200" HorizontalAlignment="Right" x:Name="ThemeCombo">
                             <ComboBoxItem Content="Use system setting"/>
                             <ComboBoxItem Content="Light"/>
                             <ComboBoxItem Content="Dark"/>
@@ -62,19 +44,13 @@
 
             </StackPanel>
 
-            <!-- ================= GENERAL ================= -->
+            <!-- General -->
             <StackPanel Spacing="10">
-
-                <TextBlock Text="General"
-                           FontSize="16"
-                           FontWeight="SemiBold"/>
-
-                <Border
-                    CornerRadius="5"
-                    Padding="15"
+            <!-- Auto-refresh Speed -->
+                <TextBlock Text="General" FontSize="14" FontWeight="SemiBold"/>
+                <Border CornerRadius="{ThemeResource ControlCornerRadius}" Padding="15"
                     Background="{ThemeResource ControlFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}"
-                    BorderThickness="1">
+                    BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}" BorderThickness="1">
 
                     <Grid ColumnSpacing="16">
                         <Grid.ColumnDefinitions>
@@ -83,24 +59,14 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <FontIcon Glyph="&#xEC4A;"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"/>
+                        <FontIcon Glyph="&#xEC4A;" FontSize="20" VerticalAlignment="Center"/>
 
                         <StackPanel Grid.Column="1" Spacing="2">
-                            <TextBlock Text="Auto-refresh speed"
-                                       FontWeight="Normal"/>
-
-                            <TextBlock Text="Adjust the speed for auto-refresh. Higher settings&#x0a;use more energy."
-                                       Opacity="0.6"
-                                       FontSize="12"/>
+                            <TextBlock Text="Auto-refresh speed" TextWrapping="WrapWholeWords" FontWeight="Normal"/>
+                            <TextBlock Text="Adjust the speed for auto-refresh. Higher settings use more energy." Opacity="0.6" TextWrapping="WrapWholeWords" FontSize="12"/>
                         </StackPanel>
 
-                        <ComboBox Grid.Column="2"
-                                  Width="200"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Center"
-                                  x:Name="RefreshCombo">
+                        <ComboBox Grid.Column="2" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="RefreshCombo">
                             <ComboBoxItem Content="Low (5s)"/>
                             <ComboBoxItem Content="Normal (2s)"/>
                             <ComboBoxItem Content="High (1s)"/>
@@ -110,28 +76,47 @@
 
                 </Border>
 
+            <!-- Capacity Format -->
+                <Border CornerRadius="{ThemeResource ControlCornerRadius}" Padding="15"
+                    Background="{ThemeResource ControlFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}" BorderThickness="1">
+
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Glyph="&#xE9D2;" FontSize="20" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="Display capacity in mAh" TextWrapping="WrapWholeWords" FontWeight="Normal"/>
+                            <TextBlock Text="Switch between mWh and mAh display format." Opacity="0.6" TextWrapping="WrapWholeWords" FontSize="12"/>
+                        </StackPanel>
+
+                        <ToggleSwitch Grid.Column="2" x:Name="CapacityToggle" HorizontalAlignment="Right" VerticalAlignment="Center"
+                          Margin="0,0,-80,0" OnContent="On" OffContent="Off"/> <!-- Kill me because of this AWFUL fix for the Margin-->
+                    </Grid>
+                </Border>
             </StackPanel>
 
-            <!-- ================= ABOUT ================= -->
-            <!-- ================= ABOUT ================= -->
-            <Expander Header="About Battery Health Viewer"
-              HorizontalAlignment="Stretch"
-              IsExpanded="False">
+            <!-- About -->
+            <Expander IsExpanded="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <Expander.Header>
+                    <StackPanel Spacing="2" Padding="0,8">
+                        <TextBlock Text="About Battery Health Viewer" FontSize="14" FontWeight="Normal"/>
+                        <TextBlock Text="v1.0.0.0" FontSize="12" Opacity="0.7"/>
+                    </StackPanel>
+                </Expander.Header>
 
-                <StackPanel Spacing="8"
-                HorizontalAlignment="Stretch">
+                <Border Padding="20,8,8,8">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="© 2026, Zakariae Ouddacht." Opacity="0.7" HorizontalAlignment="Left"/>
+                        <HyperlinkButton Content="GitHub source code"
+                            NavigateUri="https://github.com/ZakariaeOuddacht/battery-health-viewer" HorizontalAlignment="Left"/>
+                    </StackPanel>
 
-                    <TextBlock Text="© 2026, Zakariae Ouddacht&#x0a;Version 1."
-                       Opacity="0.7"
-                       HorizontalAlignment="Left"
-                       TextAlignment="Left"/>
-
-                    <HyperlinkButton
-                    Content="GitHub source code"
-                    NavigateUri="https://github.com/ZakariaeOuddacht/battery-health-viewer"
-                    HorizontalAlignment="Left"/>
-
-                </StackPanel>
+                </Border>
 
             </Expander>
 
