@@ -1,33 +1,120 @@
-﻿using Battery_Health_Viewer.Views;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
+using System.Management;
+using Battery_Health_Viewer.Views;
 using Windows.Devices.Power;
 
 namespace Battery_Health_Viewer.Services
 {
     public class BatteryInfoProvider
     {
-        private readonly BatteryService _service = new();
-
         public ObservableCollection<BatteryProperty> GetBatteryInfo()
         {
-            var report = _service.GetReport();
+            var battery = Battery.AggregateBattery;
+            var report = battery.GetReport();
 
-            long design = report.DesignCapacityInMilliwattHours ?? 0;
-            long full = report.FullChargeCapacityInMilliwattHours ?? 0;
-            long current = report.RemainingCapacityInMilliwattHours ?? 0;
+            long designCapacity = report.DesignCapacityInMilliwattHours ?? 0;
+            long fullChargeCapacity = report.FullChargeCapacityInMilliwattHours ?? 0;
+            long remainingCapacity = report.RemainingCapacityInMilliwattHours ?? 0;
+            long chargeRate = report.ChargeRateInMilliwatts ?? 0;
+            long voltage = 0;
 
-            double health = design > 0 && full > 0
-                ? (double)full / design * 100
-                : 0;
+            double currentPercent =
+                fullChargeCapacity > 0
+                    ? (double)remainingCapacity / fullChargeCapacity * 100
+                    : 0;
+
+            double health =
+                designCapacity > 0
+                    ? (double)fullChargeCapacity / designCapacity * 100
+                    : 0;
+
+            double wearLevel = 100 - health;
+
+            string batteryName = "Unknown";
+            string cycleCount = "Unknown";
+
+            try
+            {
+                using var searcher = new ManagementObjectSearcher(
+                    @"root\WMI",
+                    "SELECT * FROM BatteryStaticData");
+
+                foreach (ManagementObject batteryObj in searcher.Get())
+                {
+                    batteryName =
+                        batteryObj["DeviceName"]?.ToString() ?? batteryName;
+                    break;
+                }
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                using var searcher =
+                    new ManagementObjectSearcher("SELECT * FROM BatteryCycleCount");
+
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    cycleCount =
+                        obj["CycleCount"]?.ToString() ?? cycleCount;
+
+                    break;
+                }
+            }
+            catch
+            {
+                // Not supported on all systems
+            }
+
+            string powerState;
+
+            if (chargeRate > 0)
+                powerState = "Charging";
+            else if (chargeRate < 0)
+                powerState = "Discharging";
+            else
+                powerState = "AC Power";
+
+            try
+            {
+                using var searcher = new ManagementObjectSearcher(
+                    @"root\WMI",
+                    "SELECT * FROM BatteryStatus");
+
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    if (obj["Voltage"] != null)
+                        voltage = Convert.ToInt64(obj["Voltage"]);
+
+                    break;
+                }
+            }
+            catch
+            {
+            }
 
             return new ObservableCollection<BatteryProperty>
             {
-                new BatteryProperty { Description = "Design Capacity", Value = $"{design:N0} mWh" },
-                new BatteryProperty { Description = "Full Charge Capacity", Value = $"{full:N0} mWh" },
-                new BatteryProperty { Description = "Current Capacity", Value = $"{current:N0} mWh" },
-                new BatteryProperty { Description = "Battery Health", Value = $"{health:F1}%" },
-                new BatteryProperty { Description = "Charge Status", Value = report.Status.ToString() },
+                new() { Description = "Battery Name", Value = batteryName },
+
+                new() { Description = "Power State", Value = powerState },
+
+                new() { Description = "Current Capacity (in %)", Value = $"{currentPercent:F1}%" },
+                new() { Description = "Current Capacity Value", Value = $"{remainingCapacity:N0} mWh" },
+                new() { Description = "Full Charge Capacity", Value = $"{fullChargeCapacity:N0} mWh" },
+                new() { Description = "Designed Capacity", Value = $"{designCapacity:N0} mWh" },
+
+                new() { Description = "Battery Health", Value = $"{health:F1}%" },
+                new() { Description = "Wear Level", Value = $"{wearLevel:F1}%" },
+
+                new() { Description = "Voltage", Value = $"{voltage:N0} mV" },
+                new() { Description = "Charge/Discharge Rate", Value = $"{chargeRate:N0} mW" },
+
+                new() { Description = "Charge Cycle Number", Value = cycleCount == "Unknown" ? "Not Supported Yet" : cycleCount },
             };
         }
     }
