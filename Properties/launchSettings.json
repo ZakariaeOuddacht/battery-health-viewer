@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Battery Health Viewer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Battery Health Viewer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
