@@ -28,7 +28,7 @@ namespace Battery_Health_Viewer
             InitializeComponent();
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
-            AppWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 720, Height = 800 });
+            AppWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 800, Height = 800 });
         }
     }
 }

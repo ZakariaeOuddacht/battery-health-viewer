@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="Battery_Health_Viewer.Views.Menu"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,20 +9,46 @@
 
     <Grid Padding="20">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Text="Battery Specifications"
+                FontSize="28"
+                VerticalAlignment="Center"/>
+
+            <Button
+                Grid.Column="1"
+                VerticalAlignment="Center">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE895;"/>
+            </Button>
+        </Grid>
+
+        <!-- TABLE -->
         <Border
-        Padding="16"
-        CornerRadius="12"
-        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
-        BorderThickness="1"
-        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+            Grid.Row="2"
+            Padding="16"
+            CornerRadius="12"
+            BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
 
             <ListView ItemsSource="{x:Bind BatteryInfo}">
+
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="local:BatteryProperty">
 
                         <Grid>
-
-                            <!-- Row structure -->
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="1"/>
@@ -34,31 +59,25 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- Left (Description) -->
                             <TextBlock
                                 Text="{x:Bind Description}"
                                 Grid.Column="0"
                                 Padding="10,8"
-                                VerticalAlignment="Center"
                                 Opacity="0.75"/>
 
-                            <!-- Right (Value) -->
                             <TextBlock
-                            Text="{x:Bind Value}"
-                            Grid.Column="1"
-                            Padding="10,8"
-                            HorizontalAlignment="Right"
-                            TextAlignment="Right"
-                            VerticalAlignment="Center"/>
+                                Text="{x:Bind Value}"
+                                Grid.Column="1"
+                                Padding="10,8"
+                                HorizontalAlignment="Right"
+                                TextAlignment="Right"/>
 
-                            <!-- Separator line -->
                             <Border
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
                                 Height="1"
                                 Background="{ThemeResource SurfaceStrokeColorDefaultBrush}"
                                 Opacity="0.35"/>
-
                         </Grid>
 
                     </DataTemplate>
