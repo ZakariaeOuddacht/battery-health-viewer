@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 ![Release](https://img.shields.io/github/v/release/ZakariaeOuddacht/battery-health-viewer)
 
-**Battery Health Viewer** my first **WinUI 3** application. The app shows basic information about your laptop's **battery**, such as **Battery Name**, **Designed Capacity**, **Wear Level**, **Charge Rate**, etc.
+**Battery Health Viewer** is my first **WinUI 3** application. The app shows basic information about your laptop's **battery**, such as **Battery Name**, **Designed Capacity**, **Wear Level**, **Charge Rate**, etc.
 
 You can also change the speed for **auto-refresh**, or change display format from **mWh** to **mAh** in Settings.
 
