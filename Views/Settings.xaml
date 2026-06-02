@@ -114,6 +114,8 @@
                         <TextBlock Text="© 2026, Zakariae Ouddacht." Opacity="0.7" HorizontalAlignment="Left"/>
                         <HyperlinkButton Content="GitHub source code"
                             NavigateUri="https://github.com/ZakariaeOuddacht/battery-health-viewer" HorizontalAlignment="Left"/>
+                        <HyperlinkButton Content="Report a bug/issue"
+                            NavigateUri="https://github.com/ZakariaeOuddacht/battery-health-viewer/issues/new" HorizontalAlignment="Left"/>
                     </StackPanel>
 
                 </Border>
