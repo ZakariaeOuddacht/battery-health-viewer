@@ -9,9 +9,9 @@
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
     <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
-    <WinUISDKReferences>false</WinUISDKReferences>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
+	  <SelfContained>false</SelfContained>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Views\Menu.xaml" />
@@ -68,11 +68,22 @@
   <!-- Publish Properties -->
   <PropertyGroup>
     <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
-    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
+    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">False</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">False</PublishTrimmed>
 	<TrimMode>partial</TrimMode>
-	<SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+	<ApplicationIcon>Assets\output.ico</ApplicationIcon>
+	<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+	<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+	<PackageCertificateThumbprint>C83C0B7397D0359AFF10EC5A6DDADD3E67A9A338</PackageCertificateThumbprint>
+	<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+	<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+	<GenerateTestArtifacts>False</GenerateTestArtifacts>
+	<AppxBundle>Never</AppxBundle>
+	<AppInstallerUri>\\localhost\apps</AppInstallerUri>
+	<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+	<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <Optimize>False</Optimize>
