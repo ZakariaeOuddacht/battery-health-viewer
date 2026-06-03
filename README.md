@@ -28,7 +28,7 @@ To install the app, you can download the latest version [here](https://github.co
 ### Requirements
 * Windows 10/11 PC with **x64** architecture.
 * [.NET Desktop Runtime v10.0.8](https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.8/windowsdesktop-runtime-10.0.8-win-x64.exe)
-### Steps
+### 1st Method (Recommended):
 1. Download the zip file provided in the [Releases](https://github.com/ZakariaeOuddacht/battery-health-viewer/releases) page (mentioned earlier).
 2. Extract it.
 3. You'll find a `.msix`, a `.cer` file and an `Install.ps1` file, right-click on the `.ps1` file and click **Run with PowerShell**.
@@ -36,6 +36,16 @@ To install the app, you can download the latest version [here](https://github.co
 5. Another blue window will open, asking you to confirm whether you want to install the certificate or not, type `y` and press `Enter`.
 6. Now it will install the certificate, closes the window, installs the app, then tells you that the install is **complete**, press `Enter` again to close the window.
 * And you're pretty much done! The app should appear in the Start Menu page; I know, the steps above are complicated, blame Microsoft for forcing certificates over MSIX packages.
+
+### 2nd Method:
+* If PoweShell doesn't work for you, this method doesn't use it.
+1. Press `Win + R` and type `certlm.msc`, a UAC window will appear, click **Yes**.
+2. Go to **Certificates - Local Computer > Trusted People**.
+3. Right-click on the empty place (or on **Trusted People**), then go to **All Tasks > Import...**, a window will appear, click **Next**.
+4. It will ask you for a **certificate**, give it the path to the `.cer` file you downloaded, then click **Next > Next > Finish**, now the file is imported!
+5. Go to the downloaded `.msix` file and double-click it, then click **Install**.
+
+    (oof this was a pain to document)
 
 ## Credits
 - App made by **Zakariae Ouddacht**.
