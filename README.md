@@ -27,7 +27,7 @@ To use the source code, there are 2 ways:
 To install the app, you can download the latest version [here](https://github.com/ZakariaeOuddacht/battery-health-viewer/releases).
 ### Requirements
 * Windows 10/11 PC with **x64** architecture.
-* [.NET Desktop Runtime v10.0.8](https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.8/windowsdesktop-runtime-10.0.8-win-x64.exe)
+* [.NET Desktop Runtime v10.0.8](https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.8/windowsdesktop-runtime-10.0.8-win-x86.exe)
 ### 1st Method (Recommended):
 1. Download the zip file provided in the [Releases](https://github.com/ZakariaeOuddacht/battery-health-viewer/releases) page (mentioned earlier).
 2. Extract it.
