@@ -40,12 +40,26 @@ namespace Battery_Health_Viewer
             RestoreWindowState();
             Closed += (_, _) => SaveWindowState();
 
-            rootFrame.Navigate(typeof(Menu)); // Default page
-            _menuPage = rootFrame.Content as Menu; // I hate when it warns me about nullable thingies >:(
+            bool hasBattery = HasBattery();
 
-            NavView.SelectedItem = NavView.MenuItems[0];
+            if (hasBattery)
+            {
+                rootFrame.Navigate(typeof(Menu)); // Default page
+                _menuPage = rootFrame.Content as Menu; // I hate when it warns me about nullable thingies >:(
+
+                NavView.SelectedItem = NavView.MenuItems[0];
+                NavView.IsPaneVisible = true;
+            }
+            else
+            {
+                rootFrame.Navigate(typeof(Views.NoBattery));
+
+                NavView.IsPaneVisible = false;
+            }
+
             ApplySavedTheme();
         }
+        
         public void SetTheme(string theme)
         {
             var titleBar = AppWindow.TitleBar;
@@ -152,6 +166,12 @@ namespace Battery_Health_Viewer
                 AppSettings.WindowX = AppWindow.Position.X;
                 AppSettings.WindowY = AppWindow.Position.Y;
             }
+        }
+        private bool HasBattery()
+        {
+            var report = Windows.Devices.Power.Battery.AggregateBattery.GetReport();
+            return report.FullChargeCapacityInMilliwattHours.HasValue ||
+                   report.RemainingCapacityInMilliwattHours.HasValue;
         }
     }
 }

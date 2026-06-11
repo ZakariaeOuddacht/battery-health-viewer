@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Views\Menu.xaml" />
+    <None Remove="Views\NoBattery.xaml" />
     <None Remove="Views\Settings.xaml" />
   </ItemGroup>
 
@@ -44,6 +45,11 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1839" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.1.3" />
     <PackageReference Include="System.Management" Version="10.0.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\NoBattery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Settings.xaml">

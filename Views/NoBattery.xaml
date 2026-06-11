@@ -1,0 +1,20 @@
+<Page
+    x:Class="Battery_Health_Viewer.Views.NoBattery"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="10">
+
+            <TextBlock Text="No Battery Detected"
+                       FontSize="24"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="This device doesn't seem to have a battery. Likely because you're using a desktop computer, or a laptop with no battery attached to it."
+                       Opacity="0.6"
+                       HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
+        </StackPanel>
+    </Grid>
+</Page>
