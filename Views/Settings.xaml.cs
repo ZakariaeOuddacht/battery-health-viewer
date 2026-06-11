@@ -84,5 +84,27 @@ namespace Battery_Health_Viewer.Views
                 menu?.UpdateRefreshSpeed();
             }
         }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            AppSettings.ResetToDefaults();
+
+            CapacityToggle.IsOn = AppSettings.UsemAh;
+            CensorToggle.IsOn = AppSettings.CensorSerial;
+
+            ThemeCombo.SelectedIndex = 0;
+            RefreshCombo.SelectedIndex = 1;
+
+            if (Application.Current is App app && app.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.SetTheme(AppSettings.Theme);
+            }
+
+            if (Application.Current is App app2 && app2.MainWindow is MainWindow mainWindow2)
+            {
+                var menu = mainWindow2.RootFrame.Content as Menu;
+                menu?.UpdateRefreshSpeed();
+            }
+        }
     }
 }

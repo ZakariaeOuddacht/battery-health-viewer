@@ -60,5 +60,15 @@ namespace Battery_Health_Viewer.Services
             get => (bool?)Local.Values["WindowMaximized"] ?? false;
             set => Local.Values["WindowMaximized"] = value;
         }
+        public static void ResetToDefaults()
+        {
+            Local.Values["RefreshSpeed"] = 2000;
+            Local.Values["Theme"] = "System";
+            Local.Values["UsemAh"] = false;
+            Local.Values["CensorSerial"] = false;
+
+            Local.Values["WindowWidth"] = 1280;
+            Local.Values["WindowHeight"] = 800;
+        }
     }
 }
