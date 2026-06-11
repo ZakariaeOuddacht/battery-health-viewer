@@ -24,7 +24,7 @@
         <TitleBar x:Name="AppTitleBar"
               Title="Battery Health Viewer">
             <TitleBar.IconSource>
-                <FontIconSource Glyph="&#xEBA8;"/>
+                <BitmapIconSource UriSource="ms-appx:///Assets/Square150x150Logo.png" ShowAsMonochrome="False"/>
             </TitleBar.IconSource>
         </TitleBar>
 

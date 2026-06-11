@@ -16,6 +16,13 @@ namespace Battery_Health_Viewer.Views
                 AppSettings.UsemAh = CapacityToggle.IsOn;
             };
 
+            CensorToggle.IsOn = AppSettings.CensorSerial;
+
+            CensorToggle.Toggled += (s, e) =>
+            {
+                AppSettings.CensorSerial = CensorToggle.IsOn;
+            };
+
             LoadSettings();
         }
 
@@ -32,9 +39,9 @@ namespace Battery_Health_Viewer.Views
             // Auto-refresh speed
             RefreshCombo.SelectedIndex = AppSettings.RefreshSpeed switch
             {
-                5000 => 0,
-                2000 => 1,
-                1000 => 2,
+                5 => 0,
+                2 => 1,
+                1 => 2,
                 _ => 1
             };
 

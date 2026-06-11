@@ -1,60 +1,84 @@
-using System;
-using System.Collections.ObjectModel;
+using Battery_Health_Viewer.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Battery_Health_Viewer.Services;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.Devices.Power;
 
 namespace Battery_Health_Viewer.Views
 {
     public sealed partial class Menu : Page
     {
         public ObservableCollection<BatteryProperty> BatteryInfo { get; } = new();
-
         private readonly BatteryInfoProvider _provider = new();
-        private readonly DispatcherTimer _timer = new();
+
+        private readonly DispatcherTimer _fastTimer = new();
+        private readonly DispatcherTimer _slowTimer = new();
 
         public Menu()
         {
             InitializeComponent();
 
-            BatteryInfo.Add(new BatteryProperty { Description = "Battery Name" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Power State" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Current Capacity (in %)" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Current Capacity Value" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Full Charge Capacity" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Designed Capacity" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Battery Health" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Wear Level" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Voltage" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Charge/Discharge Rate" });
-            BatteryInfo.Add(new BatteryProperty { Description = "Charge Cycle Number" });
+            // Placeholders
+            string[] descriptions = {
+                "Battery Name", "Manufacturer", "Serial Number", "Manufacture Date",
+                "Power State", "Current Capacity (in %)", "Current Capacity Value",
+                "Full Charge Capacity", "Designed Capacity", "Battery Health",
+                "Wear Level", "Voltage", "Charge/Discharge Rate", "Charge Cycle Number"
+            };
 
-            RefreshBattery();
-
-            _timer.Interval = TimeSpan.FromMilliseconds(AppSettings.RefreshSpeed);
-            _timer.Tick += (_, __) => RefreshBattery();
-            _timer.Start();
-        }
-
-        private void RefreshBattery()
-        {
-            var updated = _provider.GetBatteryInfo();
-
-            int count = Math.Min(BatteryInfo.Count, updated.Count);
-
-            for (int i = 0; i < count; i++)
+            foreach (var desc in descriptions)
             {
-                BatteryInfo[i].Value = updated[i].Value;
+                BatteryInfo.Add(new BatteryProperty { Description = desc, Value = "Loading..." });
+            }
+
+            Battery.AggregateBattery.ReportUpdated += AggregateBattery_ReportUpdated;
+            _ = InitializeBatteryDataAsync();
+
+            _fastTimer.Interval = TimeSpan.FromSeconds(AppSettings.RefreshSpeed);
+            _fastTimer.Tick += (_, __) => RefreshLiveBattery();
+
+            _slowTimer.Interval = TimeSpan.FromMinutes(2);
+            _slowTimer.Tick += async (_, __) => await RefreshReport();
+
+            _fastTimer.Start();
+            _slowTimer.Start();
+        }
+        private void AggregateBattery_ReportUpdated(Battery sender, object args)
+        {
+            this.DispatcherQueue.TryEnqueue(() =>
+            {
+                RefreshLiveBattery();
+            });
+        }
+        private async Task InitializeBatteryDataAsync()
+        {
+            await RefreshReport();
+            RefreshLiveBattery();
+        }
+        private void RefreshLiveBattery()
+        {
+            var updatedLiveItems = _provider.GetLiveBatteryInfo();
+
+            foreach (var item in updatedLiveItems)
+            {
+                var existing = BatteryInfo.FirstOrDefault(x => x.Description == item.Description);
+                if (existing != null) existing.Value = item.Value;
             }
         }
+        private async Task RefreshReport()
+        {
+            var updatedReportItems = await _provider.GetBatteryInfoAsync();
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshBattery();
+            foreach (var item in updatedReportItems)
+            {
+                var existing = BatteryInfo.FirstOrDefault(x => x.Description == item.Description);
+                if (existing != null) existing.Value = item.Value;
+            }
         }
-        public void UpdateRefreshSpeed()
-        {
-            _timer.Interval = TimeSpan.FromMilliseconds(AppSettings.RefreshSpeed);
-        }
+        private void RefreshButton_Click(object sender, RoutedEventArgs e) { RefreshLiveBattery(); }
+        public void UpdateRefreshSpeed() { _fastTimer.Interval = TimeSpan.FromSeconds(AppSettings.RefreshSpeed); }
     }
 }

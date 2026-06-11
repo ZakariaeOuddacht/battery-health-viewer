@@ -9,7 +9,7 @@ namespace Battery_Health_Viewer.Services
 
         public static int RefreshSpeed
         {
-            get => (int)(Local.Values["RefreshSpeed"] ?? 2000);
+            get => (int)(Local.Values["RefreshSpeed"] ?? 2);
             set => Local.Values["RefreshSpeed"] = value;
         }
 
@@ -23,6 +23,12 @@ namespace Battery_Health_Viewer.Services
         {
             get => (bool)(Local.Values["UsemAh"] ?? false);
             set => Local.Values["UsemAh"] = value;
+        }
+
+        public static bool CensorSerial // Or I'd say CENSOR CEREAL (ba dum tss)
+        {
+            get => (bool)(Local.Values["CensorSerial"] ?? false);
+            set => Local.Values["CensorSerial"] = value;
         }
         // Window specific
         public static int WindowWidth

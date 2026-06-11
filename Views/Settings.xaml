@@ -46,7 +46,7 @@
 
             <!-- General -->
             <StackPanel Spacing="10">
-            <!-- Auto-refresh Speed -->
+                <!-- Auto-refresh Speed -->
                 <TextBlock Text="General" FontSize="14" FontWeight="SemiBold"/>
                 <Border CornerRadius="{ThemeResource ControlCornerRadius}" Padding="15"
                     Background="{ThemeResource ControlFillColorDefaultBrush}"
@@ -76,7 +76,7 @@
 
                 </Border>
 
-            <!-- Capacity Format -->
+                <!-- Capacity Format -->
                 <Border CornerRadius="{ThemeResource ControlCornerRadius}" Padding="15"
                     Background="{ThemeResource ControlFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}" BorderThickness="1">
@@ -95,7 +95,30 @@
                         </StackPanel>
 
                         <ToggleSwitch Grid.Column="2" x:Name="CapacityToggle" HorizontalAlignment="Right" VerticalAlignment="Center"
-                          Margin="0,0,-80,0" OnContent="On" OffContent="Off"/> <!-- Kill me because of this AWFUL fix for the Margin-->
+                          Margin="0,0,-80,0" OnContent="On" OffContent="Off"/>
+                        <!-- Kill me because of this AWFUL fix for the Margin-->
+                    </Grid>
+                </Border>
+                <!-- Censor Serial Number -->
+                <Border CornerRadius="{ThemeResource ControlCornerRadius}" Padding="15"
+                    Background="{ThemeResource ControlFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource ControlAltFillColorSecondaryBrush}" BorderThickness="1">
+
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Glyph="&#xE8AC;" FontSize="20" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="Censor serial number" TextWrapping="WrapWholeWords" FontWeight="Normal"/>
+                            <TextBlock Text="Censor the serial number with asterisks. Useful if you want to screenshot the dashboard." Opacity="0.6" TextWrapping="WrapWholeWords" FontSize="12"/>
+                        </StackPanel>
+
+                        <ToggleSwitch Grid.Column="2" x:Name="CensorToggle" HorizontalAlignment="Right" VerticalAlignment="Center"
+                          Margin="0,0,-80,0" OnContent="On" OffContent="Off"/>
                     </Grid>
                 </Border>
             </StackPanel>
@@ -105,13 +128,13 @@
                 <Expander.Header>
                     <StackPanel Spacing="2" Padding="0,8">
                         <TextBlock Text="About Battery Health Viewer" FontSize="14" FontWeight="Normal"/>
-                        <TextBlock Text="v1.0.0.0" FontSize="12" Opacity="0.7"/>
+                        <TextBlock Text="v1.1.0.0" FontSize="12" Opacity="0.6"/>
                     </StackPanel>
                 </Expander.Header>
 
                 <Border Padding="20,8,8,8">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="© 2026, Zakariae Ouddacht." Opacity="0.7" HorizontalAlignment="Left"/>
+                        <TextBlock Text="© 2026, Zakariae Ouddacht." Opacity="0.6" HorizontalAlignment="Left"/>
                         <HyperlinkButton Content="GitHub source code"
                             NavigateUri="https://github.com/ZakariaeOuddacht/battery-health-viewer" HorizontalAlignment="Left"/>
                         <HyperlinkButton Content="Report a bug/issue"
