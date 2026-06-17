@@ -14,14 +14,15 @@ This app is **MIT** licensed, so you can pretty much do **anything** with it, or
 To use the source code, there are 2 ways:
 * You need **Visual Studio 2026** with **WinUI application development** installed in (using Visual Studio Installer of course).
 
-### The first:
+### The 1st (Recommended):
+* If GitHub detects that this is made in Visual Studio, it will give you a button in the `<> Code` dropdown called **"Open with Visual Studio"**. Click it.
+* When Visual Studio launches, simply provide a **path** for the repo, then click **Clone**.
+
+### The 2nd:
+If you don't have the **"Open with Visual Studio"**, this way doesn't use it.
 * Clone this repo by either using `git clone` or downloading it from GitHub here.
 * Extract the zipped file if downloaded here.
 * Finally, **import** the `.slnx` file into Visual Studio, it should work as intended.
-
-### The second (Recommended):
-* If GitHub detects that this is made in Visual Studio, it will give you a button in the `<> Code` dropdown called **"Open with Visual Studio"**. Click it.
-* When Visual Studio launches, simply provide a **path** for the repo, then click **Clone**.
 
 ## Installation
 To install the app, you can download the latest version [here](https://github.com/ZakariaeOuddacht/battery-health-viewer/releases).
@@ -38,14 +39,13 @@ To install the app, you can download the latest version [here](https://github.co
 * And you're pretty much done! The app should appear in the Start Menu page; I know, the steps above are complicated, blame Microsoft for forcing certificates over MSIX packages.
 
 ### 2nd Method:
-* If PoweShell doesn't work for you, this method doesn't use it.
+If PoweShell doesn't work for you, this method doesn't use it.
 1. Press `Win + R` and type `certlm.msc`, a UAC window will appear, click **Yes**.
 2. Go to **Certificates - Local Computer > Trusted People**.
 3. Right-click on the empty place (or on **Trusted People**), then go to **All Tasks > Import...**, a window will appear, click **Next**.
 4. It will ask you for a **certificate**, give it the path to the `.cer` file you downloaded, then click **Next > Next > Finish**, now the file is imported!
 5. Go to the downloaded `.msix` file and double-click it, then click **Install**.
-
-    (oof this was a pain to document)
+(oof this was a pain to document)
 
 ## Credits
 - App made by **Zakariae Ouddacht**.

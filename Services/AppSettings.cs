@@ -33,13 +33,13 @@ namespace Battery_Health_Viewer.Services
         // Window specific
         public static int WindowWidth
         {
-            get => (int?)Local.Values["WindowWidth"] ?? 1280;
+            get => (int?)Local.Values["WindowWidth"] ?? 853;
             set => Local.Values["WindowWidth"] = value;
         }
 
         public static int WindowHeight
         {
-            get => (int?)Local.Values["WindowHeight"] ?? 800;
+            get => (int?)Local.Values["WindowHeight"] ?? 533;
             set => Local.Values["WindowHeight"] = value;
         }
 
@@ -67,8 +67,8 @@ namespace Battery_Health_Viewer.Services
             Local.Values["UsemAh"] = false;
             Local.Values["CensorSerial"] = false;
 
-            Local.Values["WindowWidth"] = 1280;
-            Local.Values["WindowHeight"] = 800;
+            Local.Values["WindowWidth"] = 853;
+            Local.Values["WindowHeight"] = 533;
         }
     }
 }

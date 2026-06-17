@@ -101,6 +101,7 @@ namespace Battery_Health_Viewer.Services
 
         private static string Censor(string input)
         {
+            if (input == "Unknown") return input;
             if (string.IsNullOrEmpty(input)) return input;
             return new string('*', input.Length);
         }
